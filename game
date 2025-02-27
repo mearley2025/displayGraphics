@@ -1,0 +1,251 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.classhierarchies;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Random;
+
+
+/**
+ *
+ * @author CGouslin2026
+ */
+public class ClassHierarchies {
+    
+    
+
+    public static void main(String[] args) {
+        
+        // create Scanner
+    
+        Scanner scan = new Scanner(System.in);
+        
+        
+        // initialize countries
+        
+        Country finland = new Country("Finland", "white and blue", "cold and rainy/snowy", "Suomenlinna Sea Fortress", "Helsinki", "Europe", "Norway, Sweden, and Russia", "F");
+        Country argentina = new Country("Argentina", "Light blue and white", "Varied, but mostly temperate; cold winters in Patagonia", "Perito Moreno Glacier", "Buenos Aires", "South America", "Chile, Bolivia, Paraguay, Brazil, Uruguay", "A");
+        Country japan = new Country("Japan", "White and red", "Varied, ranging from cold winters to subtropical", "Mount Fuji", "Tokyo", "Asia", "Nothing", "J");
+        Country usa = new Country("United States", "red, white, and blue", "varied (temperate, arid, tropical, polar)", "Statue of Liberty", "Washington, D.C.", "North America", "Canada and Mexico", "U");
+        Country canada = new Country("Canada", "red and white", "cold and temperate", "Niagara Falls", "Ottawa", "North America", "United States", "C");
+        Country brazil = new Country("Brazil", "green, yellow, blue, and white", "tropical and subtropical", "Christ the Redeemer", "Brasília", "South America", "Argentina, Bolivia, Colombia, Guyana, Paraguay, Peru, Suriname, Uruguay, and Venezuela", "B");
+        Country australia = new Country("Australia", "blue, red, and white", "varied (desert, tropical, temperate)", "Sydney Opera House", "Canberra", "Australia", "None", "A");
+        Country china = new Country("China", "red and yellow", "varied (tropical, arid, temperate, subarctic)", "Great Wall of China", "Beijing", "Asia", "14 countries including India, Russia, and Mongolia", "C");
+        Country india = new Country("India", "orange, white, green, and blue", "tropical and temperate", "Taj Mahal", "New Delhi", "Asia", "Pakistan, China, Nepal, Bhutan, Bangladesh, and Myanmar", "I");
+        Country russia = new Country("Russia", "white, blue, and red", "varied (subarctic, continental, temperate)", "Saint Basil's Cathedral", "Moscow", "Europe/Asia", "14 countries including China, Ukraine, and Mongolia", "R");
+        Country france = new Country("France", "blue, white, and red", "temperate and Mediterranean", "Eiffel Tower", "Paris", "Europe", "Belgium, Luxembourg, Germany, Switzerland, Italy, Spain, Andorra, and Monaco", "F");
+        Country germany = new Country("Germany", "black, red, and yellow", "temperate", "Brandenburg Gate", "Berlin", "Europe", "Denmark, Poland, Czech Republic, Austria, Switzerland, France, Luxembourg, Belgium, and Netherlands", "G");
+        Country italy = new Country("Italy", "green, white, and red", "Mediterranean", "Colosseum", "Rome", "Europe", "France, Switzerland, Austria, and Slovenia", "I");
+        Country spain = new Country("Spain", "red and yellow", "Mediterranean and oceanic", "Sagrada Familia", "Madrid", "Europe", "Portugal, France, Andorra, and Gibraltar", "S");
+        Country south_korea = new Country("South Korea", "red, blue, white, and black", "temperate", "Gyeongbokgung Palace", "Seoul", "Asia", "North Korea", "S");
+        Country mexico = new Country("Mexico", "green, white, and red", "varied (desert, tropical, temperate)", "Chichen Itza", "Mexico City", "North America", "United States, Guatemala, and Belize", "M");
+        Country egypt = new Country("Egypt", "red, white, black, and gold", "desert", "Pyramids of Giza", "Cairo", "Africa", "Libya, Sudan, and Israel", "E");
+        Country south_africa = new Country("South Africa", "red, blue, green, yellow, black, and white", "varied (Mediterranean, desert, subtropical)", "Table Mountain", "Pretoria", "Africa", "Namibia, Botswana, Zimbabwe, Mozambique, Eswatini, and Lesotho", "S");
+        Country thailand = new Country("Thailand", "red, white, and blue", "tropical", "Grand Palace", "Bangkok", "Asia", "Myanmar, Laos, Cambodia, and Malaysia", "T");
+        Country turkey = new Country("Turkey", "red and white", "Mediterranean and continental", "Hagia Sophia", "Ankara", "Europe/Asia", "Greece, Bulgaria, Georgia, Armenia, Iran, Iraq, and Syria", "T");
+        Country indonesia = new Country("Indonesia", "red and white", "tropical", "Borobudur", "Jakarta", "Asia", "Papua New Guinea, East Timor, and Malaysia", "I");
+        
+        
+        // select random country
+        
+        Country randCountry = Country.getRandomCountry();
+        
+        // select chosen difficulty
+        
+        System.out.println("Please choose a difficulty\n\n - Easy\n - Medium\n - Hard\n");
+        String diffChosen = "Easy";
+        
+        // prevent errors with while loop
+        int x = 1;
+        diffChosen = scan.nextLine();
+        while (x == 1) {            
+            
+            // check if diffChosen is valid
+            
+            if (diffChosen.equalsIgnoreCase("Easy") || diffChosen.equalsIgnoreCase("Medium") || diffChosen.equalsIgnoreCase("Hard")){
+                x = 0;
+            } else {
+                System.out.println("\nERROR\nPlease choose a valid difficulty");
+                diffChosen = scan.nextLine();
+            }
+        }
+        
+        // initialize game (chosen difficulty, random country)
+        Game game = new Game(diffChosen, randCountry);  
+        
+        //start game
+        game.start();
+    }
+}
+
+//////////////////////////////////////////// game //////////////////////////////////////////////////////
+
+class Game {
+    
+    // initialize
+    
+    private String difficulty;
+    private Country country; 
+    
+    // constructor
+    
+    public Game(String inDifficulty, Country inCountry){
+        difficulty = inDifficulty;
+        country = inCountry;
+    }
+    
+    // run game
+    
+    public void start(){
+        
+        System.out.println("The game has started on " + difficulty + " mode\n");
+        
+        if (difficulty.equalsIgnoreCase("Hard")){
+            
+            // print hints & image (do later(maybe)) based on difficulty
+            
+            System.out.println(Hard.getHardHints(country));
+            
+        } else if (difficulty.equalsIgnoreCase("Medium")){
+            
+            System.out.println(Medium.getHardHints(country));
+            System.out.println(Medium.getMediumHints(country));   
+            
+        } else {
+            
+            System.out.println(Easy.getHardHints(country));
+            System.out.println(Easy.getMediumHints(country)); 
+            System.out.println(Easy.getEasyHints(country));
+        }
+    }
+}
+
+// we stillneed to have the aprt of the game where a while loop goes that asks fro our answer and checks if we got it right or not, then we can add more countries if we want and ask mr nelson if its okay
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+class Hard {
+  
+    //do images later
+    
+    // print hints for hard method
+    
+    public static String getHardHints(Country inCountry){
+        
+        String result = "The flag colors of the country are " + inCountry.getFlagColors() + "\nThe climate of the country is " + inCountry.getClimate();
+        
+        
+        return result;
+    }
+    
+}
+
+
+class Medium extends Hard {
+    
+    // print medium hints method
+    
+    public static String getMediumHints(Country inCountry){
+        String result = "A landmark in the country is " + inCountry.getLandmark() + "\nThe capital of the country is " + inCountry.getCapital();
+        return result;       
+    }
+    
+}
+
+
+class Easy extends Medium {
+    
+    // print easy hints
+    
+    public static String getEasyHints(Country inCountry){
+        String result = "The continent the country is on is " + inCountry.getContinent() + "\nThe country borders " + inCountry.getBordering() + "\nThe first letter of the country is " + inCountry.getFirstLetter();
+        return result;        
+    }
+    
+}
+
+//////////////////////////////////////////////////// country /////////////////////////////////////////////////
+
+
+class Country {
+    
+    // create static list
+    
+    private static List<Country> allCountries = new ArrayList<>();
+    
+    // method to retrieve country at random (create random class)
+    
+    static Country getRandomCountry(){    
+        Random rand = new Random();
+        int randIndex = rand.nextInt(allCountries.size() - 1);
+        return allCountries.get(randIndex);
+    }
+    
+        
+    
+    // initialize
+    
+    private String name;
+    private String flagColors;
+    private String climate;
+    private String landmark;
+    private String capital;
+    private String continent;
+    private String bordering;     
+    private String firstLetter;       
+    
+            
+    // constructor
+    
+    public Country(String inName, String inFlagColors, String inClimate, String inLandmark, String inCapital, String inContinent, String inBordering, String inFirstLetter){
+        name = inName;
+        flagColors = inFlagColors;
+        climate = inClimate;
+        landmark = inLandmark;
+        capital = inCapital;
+        continent = inContinent;
+        bordering = inBordering;  
+        firstLetter = inFirstLetter;
+        // add to static list
+        allCountries.add(this);
+    }
+    
+    // accessors
+    
+    public String getName(){
+        return name;        
+    }
+    
+    public String getFlagColors(){
+        return flagColors;
+    }
+    
+    public String getClimate(){
+        return climate;
+    }
+    
+    public String getLandmark(){
+        return landmark;
+    }
+    
+    public String getCapital(){
+        return capital;
+    }
+    
+    public String getContinent(){
+        return continent;
+    }
+    
+    public String getBordering(){
+        return bordering;
+    }
+    
+    public String getFirstLetter(){
+        return firstLetter;
+    }
+    
+}
