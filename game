@@ -80,6 +80,21 @@ public class ClassHierarchies {
         //start game
         game.start();
     }
+
+// Start guessing loop
+    Scanner scanner = new Scanner(System.in);
+    System.out.println("Guess the country:");
+    
+    String userGuess = scanner.nextLine();
+    
+    if (userGuess.equalsIgnoreCase(randCountry.getName())) {
+        System.out.println("Congratulations! You guessed the correct country.");
+        System.out.println("Game Over.");
+    } else {
+        System.out.println("Incorrect guess. The correct country was " + country.getName() + ".");
+        System.out.println("Game Over.");
+    }
+}
 }
 
 //////////////////////////////////////////// game //////////////////////////////////////////////////////
